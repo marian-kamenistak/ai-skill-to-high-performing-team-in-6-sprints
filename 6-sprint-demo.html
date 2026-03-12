@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Struggling to High-Performing: A 6-Sprint Transformation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3345;
+    --text: #e4e7f1;
+    --text-muted: #8b90a5;
+    --accent: #6c7ee1;
+    --accent-light: #8b9af0;
+    --green: #34d399;
+    --green-bg: rgba(52, 211, 153, 0.12);
+    --yellow: #fbbf24;
+    --yellow-bg: rgba(251, 191, 36, 0.12);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.12);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(108,126,225,0.08) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 800px;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero .team-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .team-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .scroll-hint svg { width: 20px; height: 20px; stroke: var(--text-muted); fill: none; stroke-width: 2; }
+
+  /* TIMELINE NAV */
+  .timeline-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 17, 23, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+  }
+
+  .timeline-nav .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    overflow-x: auto;
+  }
+
+  .nav-dot {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--text-muted);
+  }
+
+  .nav-dot:hover { border-color: var(--accent); color: var(--text); }
+  .nav-dot.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .nav-dot.completed { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+
+  .nav-line {
+    flex-shrink: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .nav-line.filled { background: var(--green); }
+
+  .nav-label {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-left: 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* SPRINT SECTIONS */
+  .sprint-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .sprint-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .sprint-num {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .sprint-meta .theme {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+  }
+
+  .sprint-meta .focus-kpi {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(108,126,225,0.15);
+    color: var(--accent-light);
+  }
+
+  /* KPI DASHBOARD */
+  .kpi-dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .kpi-dashboard { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .kpi-card.focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(108,126,225,0.15); }
+  .kpi-card .kpi-name { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .kpi-card .kpi-value { font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .kpi-card .kpi-unit { font-size: 0.65rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+
+  .kpi-card .kpi-change {
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .kpi-card .zone-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .zone-red { background: var(--red); }
+  .zone-yellow { background: var(--yellow); }
+  .zone-green { background: var(--green); }
+
+  .val-red { color: var(--red); }
+  .val-yellow { color: var(--yellow); }
+  .val-green { color: var(--green); }
+
+  /* CONTENT COLUMNS */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .content-grid { grid-template-columns: 1fr; }
+  }
+
+  .content-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .content-card h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .content-card h3 .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .issue-card { border-left: 3px solid var(--red); }
+  .issue-card h3 .icon { background: var(--red-bg); }
+
+  .approach-card { border-left: 3px solid var(--green); }
+  .approach-card h3 .icon { background: var(--green-bg); }
+
+  .content-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .content-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .content-card li:last-child { border: none; }
+  .content-card li .bullet { flex-shrink: 0; margin-top: 0.35rem; width: 5px; height: 5px; border-radius: 50%; }
+  .issue-card li .bullet { background: var(--red); }
+  .approach-card li .bullet { background: var(--green); }
+
+  /* ACTIONS */
+  .actions-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .actions-section h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    color: var(--accent-light);
+  }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .action-item:last-child { border: none; }
+
+  .action-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(108,126,225,0.15);
+    color: var(--accent-light);
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-text { font-size: 0.88rem; line-height: 1.5; }
+
+  /* DIVIDER */
+  .sprint-divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .sprint-divider .line { flex: 1; height: 1px; background: var(--border); }
+  .sprint-divider .arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+  }
+
+  /* RESULTS SUMMARY */
+  .results-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .results-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .results-header h2 .gradient {
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .results-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  .results-comparison {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .results-comparison { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .result-card .label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+
+  .result-card .before-after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-card .before { font-size: 1.2rem; font-weight: 700; color: var(--red); text-decoration: line-through; opacity: 0.6; }
+  .result-card .arrow-r { color: var(--text-muted); }
+  .result-card .after { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+  .result-card .zone-change { font-size: 0.7rem; font-weight: 600; }
+
+  /* TAKEAWAY */
+  .takeaway {
+    background: linear-gradient(135deg, rgba(108,126,225,0.1), rgba(52,211,153,0.08));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .takeaway h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .takeaway p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 650px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+  }
+
+  .takeaway .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+  /* Chart area */
+  .chart-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+  }
+
+  .chart-area h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+  }
+
+  .mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 60px;
+    margin-top: 0.5rem;
+  }
+
+  .mini-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    min-width: 20px;
+    position: relative;
+    transition: all 0.5s;
+  }
+
+  .mini-bar .bar-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .mini-bar .bar-value {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="team-badge"><span class="dot"></span> Demo Case Study</div>
+  <h1>From <span class="gradient">Struggling</span> to<br>High-Performing in 6 Sprints</h1>
+  <p class="subtitle">A realistic walkthrough of how a B2B SaaS platform team transformed their delivery using 5 engineering KPIs, data-driven coaching, and disciplined execution.</p>
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- TIMELINE NAV -->
+<div class="timeline-nav" id="timeline">
+  <div class="inner" id="navInner"></div>
+</div>
+
+<!-- SPRINT CONTENT -->
+<div id="sprintContent"></div>
+
+<!-- RESULTS -->
+<div class="results-section" id="results"></div>
+
+<script>
+const SPRINTS = [
+  {
+    num: 0,
+    theme: "Baseline Assessment",
+    focusKpi: "ALL",
+    focusLabel: "Full Diagnostic",
+    kpis: {
+      SC:   { value: 38,   unit: "%",     zone: "RED" },
+      RC:   { value: 22,   unit: "%",     zone: "RED" },
+      SCT:  { value: 14.2, unit: "days",  zone: "RED" },
+      EWIP: { value: 8,    unit: "epics", zone: "RED" },
+      ECT:  { value: 12.5, unit: "weeks", zone: "RED" }
+    },
+    issues: [
+      "Team of 7 engineers working on 8 epics simultaneously. Everyone is context-switching between 2-3 epics daily.",
+      "Stories are vaguely defined and average 14 days to complete. Some sit in 'In Progress' for 3+ weeks.",
+      "Sprint completion at 38% means the team finishes roughly 4 out of 11 committed stories per sprint.",
+      "Only 22% of work connects to quarterly roadmap. Most effort goes to ad-hoc requests and tech debt firefighting."
+    ],
+    approaches: [
+      "Run the AI-powered KPI assessment tool on the last 4 closed sprints to establish a quantified baseline.",
+      "Share the dashboard with the team. No blame, just data. The numbers will speak for themselves.",
+      "Identify the entry point: EWIP at 8 is the root cause. High WIP drives up everything else.",
+      "Get leadership buy-in: present the feedback loop diagram showing how EWIP cascades into all other KPIs."
+    ],
+    actions: [
+      "Export Jira data and run initial KPI analysis using the sprint evaluation tool.",
+      "Schedule a 90-minute team workshop to review the baseline dashboard together.",
+      "Map the epic portfolio: which 8 epics are active, which actually matter this quarter, which can wait.",
+      "Draft a 6-sprint improvement proposal with specific targets for leadership approval."
+    ]
+  },
+  {
+    num: 1,
+    theme: "Stop Starting, Start Finishing",
+    focusKpi: "EWIP",
+    focusLabel: "Primary: EWIP",
+    kpis: {
+      SC:   { value: 42,   unit: "%",     zone: "RED",    change: "+4pp" },
+      RC:   { value: 24,   unit: "%",     zone: "RED",    change: "+2pp" },
+      SCT:  { value: 11.5, unit: "days",  zone: "RED",    change: "-2.7d" },
+      EWIP: { value: 5,    unit: "epics", zone: "YELLOW", change: "-3" },
+      ECT:  { value: 11.0, unit: "weeks", zone: "RED",    change: "-1.5w" }
+    },
+    issues: [
+      "Product manager pushes back hard on WIP limits. 'We promised all 8 features to clients this quarter.'",
+      "Two engineers feel anxious about pausing 'their' epics. They've invested weeks and don't want the work to feel wasted.",
+      "Stakeholders keep pinging the team on Slack about paused epics. 'When will feature X be done?'"
+    ],
+    approaches: [
+      "Data-driven negotiation with PM: show the correlation chart. At 8 epics WIP, average epic takes 12.5 weeks. At 4 epics, the math suggests ~6 weeks. Finishing 4 fast beats finishing 8 slow.",
+      "Reframe the pause as strategic: 'We are not stopping those epics. We're sequencing them so they actually ship faster.'",
+      "Set up a simple 'Epic Status' Slack channel with weekly updates so stakeholders see progress without interrupting engineers.",
+      "Hard WIP limit: maximum 5 epics in active development. One must reach Done before a new one can start."
+    ],
+    actions: [
+      "Facilitate prioritization session with PM and tech lead. Pick top 5 epics, move 3 back to backlog.",
+      "Implement 'one in, one out' rule and make it visible on the team board.",
+      "Set up weekly stakeholder update in Slack to reduce ad-hoc interruptions.",
+      "Run KPI check mid-sprint to see if EWIP dropped and SCT is responding."
+    ]
+  },
+  {
+    num: 2,
+    theme: "Break It Down, Ship It Fast",
+    focusKpi: "SCT",
+    focusLabel: "Primary: SCT",
+    kpis: {
+      SC:   { value: 51,   unit: "%",     zone: "YELLOW", change: "+9pp" },
+      RC:   { value: 28,   unit: "%",     zone: "RED",    change: "+4pp" },
+      SCT:  { value: 7.8,  unit: "days",  zone: "YELLOW", change: "-3.7d" },
+      EWIP: { value: 4,    unit: "epics", zone: "YELLOW", change: "-1" },
+      ECT:  { value: 9.2,  unit: "weeks", zone: "RED",    change: "-1.8w" }
+    },
+    issues: [
+      "Senior developer insists large stories 'can not be broken down further'. One 18-day story blocks the whole epic.",
+      "Stories get broken into tiny tasks but developers skip the refinement. Acceptance criteria are vague or missing.",
+      "Mid-sprint scope additions: PM sneaks in 'just one small thing' that turns into 3 days of work."
+    ],
+    approaches: [
+      "Pair with the senior dev on one large story. Walk through the spike-then-implement pattern: first a timeboxed spike (2 days max), then implementation stories of 3-5 days each.",
+      "Introduce a Definition of Ready: no story enters the sprint without clear acceptance criteria, estimated at 5 days or less, and dependencies identified.",
+      "Sprint protection agreement: any mid-sprint addition requires removing an equal-sized item. Make the trade-off visible and conscious."
+    ],
+    actions: [
+      "Run a story breakdown workshop: take the 3 largest backlog items and practice splitting them live.",
+      "Add 'Definition of Ready' checklist to Jira workflow. Stories failing the check don't enter sprint planning.",
+      "Create a 'mid-sprint change log' to track scope additions and their impact on sprint completion.",
+      "Set a target: no story estimated above 5 days enters the sprint."
+    ]
+  },
+  {
+    num: 3,
+    theme: "Deliver What You Promise",
+    focusKpi: "SC",
+    focusLabel: "Primary: SC",
+    kpis: {
+      SC:   { value: 68,   unit: "%",     zone: "YELLOW", change: "+17pp" },
+      RC:   { value: 35,   unit: "%",     zone: "YELLOW", change: "+7pp" },
+      SCT:  { value: 5.9,  unit: "days",  zone: "GREEN",  change: "-1.9d" },
+      EWIP: { value: 4,    unit: "epics", zone: "YELLOW", change: "0" },
+      ECT:  { value: 7.1,  unit: "weeks", zone: "YELLOW", change: "-2.1w" }
+    },
+    issues: [
+      "Team overcommits in planning. They commit to 14 stories but finish 9. The optimism bias is real.",
+      "Two long-running epics (started 4 months ago) are 80% done but the last 20% keeps dragging on. The team calls them 'zombie epics'.",
+      "Retrospectives feel stale. The team discusses problems but rarely follows through on action items."
+    ],
+    approaches: [
+      "Introduce the 80% capacity rule: plan for 80% of available sprint hours. The remaining 20% is buffer for meetings, unplanned work, and human reality. This alone drops spillover by 30-40%.",
+      "Force-close the zombie epics. Either finish the remaining scope in this sprint (with dedicated focus) or descope and close them as-is. Zombie epics drain morale and distort EWIP.",
+      "Restructure retrospectives around one question: 'What specifically prevented stories from finishing this sprint?' Track blockers, not feelings."
+    ],
+    actions: [
+      "Reduce sprint commitment from 14 to 10 stories this sprint. Underpromise, overdeliver.",
+      "Dedicate 2 engineers to finish the zombie epics this sprint. No new work for them until done.",
+      "Create a retro action tracker in Notion with owners and deadlines. Review last sprint's actions at the start of each retro.",
+      "Celebrate: the team just crossed 50% SC for the first time. Make it visible."
+    ]
+  },
+  {
+    num: 4,
+    theme: "Connect Work to Strategy",
+    focusKpi: "RC",
+    focusLabel: "Primary: RC",
+    kpis: {
+      SC:   { value: 74,   unit: "%",     zone: "YELLOW", change: "+6pp" },
+      RC:   { value: 51,   unit: "%",     zone: "GREEN",  change: "+16pp" },
+      SCT:  { value: 5.1,  unit: "days",  zone: "GREEN",  change: "-0.8d" },
+      EWIP: { value: 3,    unit: "epics", zone: "GREEN",  change: "-1" },
+      ECT:  { value: 5.8,  unit: "weeks", zone: "YELLOW", change: "-1.3w" }
+    },
+    issues: [
+      "Many epics in Jira lack quarterly labels. The RC metric shows 28% but the real strategic alignment might be higher. It is just not tracked properly.",
+      "Engineers gravitate toward technically interesting work over roadmap priorities. Two devs spent a week on a 'performance optimization' that was not on the roadmap.",
+      "Product and engineering have different definitions of 'done' for quarterly goals."
+    ],
+    approaches: [
+      "Epic hygiene session: go through all active and backlog epics with PM. Add quarterly labels (25Q1, 25Q2) to everything that maps to the roadmap. Remove stale epics that nobody cares about.",
+      "Introduce 'strategic vs. tactical' sprint ratio: 60%+ of sprint points should map to quarterly-labelled epics. Remaining 40% covers tech debt, bugs, and maintenance. Make this visible in sprint planning.",
+      "Monthly product-eng alignment meeting: PM presents next month's priorities, engineering provides feasibility and sizing. Both sides commit to the plan."
+    ],
+    actions: [
+      "Schedule a 2-hour epic cleanup session. Label all roadmap epics, archive dead ones.",
+      "Add 'Roadmap Contribution' as a visible metric in sprint reviews.",
+      "Set team agreement: no more than 40% of sprint capacity on non-roadmap work.",
+      "Run mid-quarter roadmap check with product: are we on track for quarterly commitments?"
+    ]
+  },
+  {
+    num: 5,
+    theme: "Lock In the Gains",
+    focusKpi: "ECT",
+    focusLabel: "Primary: ECT",
+    kpis: {
+      SC:   { value: 78,   unit: "%",     zone: "YELLOW", change: "+4pp" },
+      RC:   { value: 55,   unit: "%",     zone: "GREEN",  change: "+4pp" },
+      SCT:  { value: 4.5,  unit: "days",  zone: "GREEN",  change: "-0.6d" },
+      EWIP: { value: 3,    unit: "epics", zone: "GREEN",  change: "0" },
+      ECT:  { value: 4.8,  unit: "weeks", zone: "GREEN",  change: "-1.0w" }
+    },
+    issues: [
+      "A senior engineer leaves the company. Knowledge is concentrated and the team panics about losing momentum.",
+      "New hire joins mid-sprint. Onboarding takes bandwidth from the remaining team members.",
+      "Team morale wobbles: 'Are we doing all this process stuff because we are not trusted?'"
+    ],
+    approaches: [
+      "Knowledge sharing sessions: the departing engineer does 3 focused handoff sessions on their key areas. Document the architectural decisions, not just the code.",
+      "Buddy system for the new hire: pair them with the most experienced remaining engineer for the first 2 sprints. Accept a 15% productivity dip as an investment.",
+      "Address the trust concern head-on. Show the before/after dashboard. 'This process is not about distrust. Its about making your work visible and your wins undeniable. Look at what you have achieved.'"
+    ],
+    actions: [
+      "Maintain WIP limits through the disruption. Do not let the personnel change be an excuse to abandon discipline.",
+      "Reduce sprint commitment by 10% for 2 sprints to absorb the transition.",
+      "Set up automated KPI tracking: run the evaluation script on every sprint close, save to a shared dashboard.",
+      "Prepare a 'team health' presentation for leadership showing the improvement trajectory."
+    ]
+  },
+  {
+    num: 6,
+    theme: "The New Normal",
+    focusKpi: "ALL",
+    focusLabel: "Sustainability",
+    kpis: {
+      SC:   { value: 82,   unit: "%",     zone: "GREEN",  change: "+4pp" },
+      RC:   { value: 58,   unit: "%",     zone: "GREEN",  change: "+3pp" },
+      SCT:  { value: 4.1,  unit: "days",  zone: "GREEN",  change: "-0.4d" },
+      EWIP: { value: 3,    unit: "epics", zone: "GREEN",  change: "0" },
+      ECT:  { value: 4.2,  unit: "weeks", zone: "GREEN",  change: "-0.6w" }
+    },
+    issues: [
+      "Some team members want to relax WIP limits now that 'everything is green'. 'We have proven we can handle more, right?'",
+      "A new quarter brings new priorities. There is pressure to take on an ambitious roadmap with 6 new epics.",
+      "Other teams in the company notice the improvement and ask: 'What are you doing differently?'"
+    ],
+    approaches: [
+      "Explain the principle: WIP limits are not training wheels you outgrow. They are the foundation of sustainable delivery. If you remove them, expect regression within 2-3 sprints.",
+      "Push back on the 6-epic quarter constructively. Propose sequencing: 3 epics in the first half, 3 in the second. Show the data: at 3 EWIP, epics finish in ~4 weeks. At 6, they will take 10+.",
+      "Create a playbook: document the 6-sprint journey, the KPIs, the interventions, the results. Share it at the engineering all-hands. This team becomes the model for organizational improvement."
+    ],
+    actions: [
+      "Compare full baseline to current: all 5 KPIs from RED to GREEN. Celebrate this in the sprint review.",
+      "Formalize team agreements: WIP limit, capacity buffer, Definition of Ready, and sprint protection as permanent working agreements.",
+      "Set up cross-team knowledge sharing: present the transformation at the next engineering all-hands.",
+      "Define next-level targets: can we hit 85% SC? Can we bring SCT under 4 days? Keep improving."
+    ]
+  }
+];
+
+function zoneClass(zone) {
+  return zone === "GREEN" ? "zone-green" : zone === "YELLOW" ? "zone-yellow" : "zone-red";
+}
+
+function valClass(zone) {
+  return zone === "GREEN" ? "val-green" : zone === "YELLOW" ? "val-yellow" : "val-red";
+}
+
+function changeIcon(change) {
+  if (!change) return '';
+  if (change.startsWith('+')) return '<span style="color:var(--text-muted)">from baseline</span>';
+  if (change.startsWith('-')) return '<span style="color:var(--text-muted)">from baseline</span>';
+  return '<span style="color:var(--text-muted)">=</span>';
+}
+
+// Build timeline nav
+function buildNav() {
+  const nav = document.getElementById('navInner');
+  const labels = ['Baseline', 'WIP', 'Stories', 'Predict.', 'Roadmap', 'Sustain', 'Culture'];
+  SPRINTS.forEach((s, i) => {
+    if (i > 0) {
+      const line = document.createElement('div');
+      line.className = 'nav-line';
+      line.id = `navLine${i}`;
+      nav.appendChild(line);
+    }
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.id = `navDot${i}`;
+    dot.textContent = i === 0 ? 'B' : i;
+    dot.onclick = () => document.getElementById(`sprint${i}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    nav.appendChild(dot);
+
+    const label = document.createElement('span');
+    label.className = 'nav-label';
+    label.textContent = labels[i];
+    nav.appendChild(label);
+  });
+}
+
+// Build sprint sections
+function buildSprints() {
+  const container = document.getElementById('sprintContent');
+
+  SPRINTS.forEach((s, idx) => {
+    // Divider between sprints
+    if (idx > 0) {
+      const divider = document.createElement('div');
+      divider.className = 'sprint-divider';
+      divider.innerHTML = '<div class="line"></div><div class="arrow">&#8595;</div><div class="line"></div>';
+      container.appendChild(divider);
+    }
+
+    const section = document.createElement('div');
+    section.className = 'sprint-section';
+    section.id = `sprint${idx}`;
+
+    // Header
+    const numLabel = idx === 0 ? 'B' : idx;
+    const numStyle = idx === 0 ? 'background: var(--red);' : '';
+
+    let html = `
+      <div class="sprint-header">
+        <div class="sprint-num" style="${numStyle}">${numLabel}</div>
+        <div class="sprint-meta">
+          <div class="theme">${s.theme}</div>
+          <span class="focus-kpi">${s.focusLabel}</span>
+        </div>
+      </div>
+    `;
+
+    // KPI Dashboard
+    html += '<div class="kpi-dashboard">';
+    for (const [name, data] of Object.entries(s.kpis)) {
+      const isFocus = s.focusKpi === name || s.focusKpi === 'ALL';
+      html += `
+        <div class="kpi-card ${isFocus ? 'focus' : ''}">
+          <div class="zone-indicator ${zoneClass(data.zone)}"></div>
+          <div class="kpi-name">${name}</div>
+          <div class="kpi-value ${valClass(data.zone)}">${data.value}</div>
+          <div class="kpi-unit">${data.unit}</div>
+          ${data.change ? `<div class="kpi-change ${valClass(data.zone)}">${data.change}</div>` : '<div class="kpi-change" style="color:var(--text-muted)">baseline</div>'}
+        </div>
+      `;
+    }
+    html += '</div>';
+
+    // Issues and Approaches
+    html += '<div class="content-grid">';
+
+    html += '<div class="content-card issue-card"><h3><span class="icon">&#9888;</span> ';
+    html += idx === 0 ? 'What We Found' : 'Issues Encountered';
+    html += '</h3><ul>';
+    s.issues.forEach(issue => {
+      html += `<li><span class="bullet"></span>${issue}</li>`;
+    });
+    html += '</ul></div>';
+
+    html += '<div class="content-card approach-card"><h3><span class="icon">&#10003;</span> ';
+    html += idx === 0 ? 'Our Approach' : 'How We Resolved Them';
+    html += '</h3><ul>';
+    s.approaches.forEach(approach => {
+      html += `<li><span class="bullet"></span>${approach}</li>`;
+    });
+    html += '</ul></div>';
+
+    html += '</div>';
+
+    // Actions
+    html += '<div class="actions-section"><h3>Concrete Actions This Sprint</h3>';
+    s.actions.forEach((action, ai) => {
+      html += `
+        <div class="action-item">
+          <span class="action-num">${ai + 1}</span>
+          <span class="action-text">${action}</span>
+        </div>
+      `;
+    });
+    html += '</div>';
+
+    section.innerHTML = html;
+    container.appendChild(section);
+  });
+}
+
+// Build results section
+function buildResults() {
+  const container = document.getElementById('results');
+  const baseline = SPRINTS[0].kpis;
+  const final = SPRINTS[6].kpis;
+
+  let html = `
+    <div class="results-header">
+      <h2>The <span class="gradient">Transformation</span></h2>
+      <p>6 sprints. 12 weeks. All 5 KPIs from RED to GREEN.</p>
+    </div>
+    <div class="results-comparison">
+  `;
+
+  const kpiNames = { SC: "Sprint Completion", RC: "Roadmap Contribution", SCT: "Story Cycle Time", EWIP: "Epic WIP", ECT: "Epic Cycle Time" };
+
+  for (const [name, data] of Object.entries(baseline)) {
+    const finalData = final[name];
+    html += `
+      <div class="result-card">
+        <div class="label">${kpiNames[name]}</div>
+        <div class="before-after">
+          <span class="before">${data.value}${data.unit === '%' ? '%' : ''}</span>
+          <span class="arrow-r">&#8594;</span>
+          <span class="after">${finalData.value}${finalData.unit === '%' ? '%' : ''}</span>
+        </div>
+        <div class="zone-change">
+          <span class="val-red">RED</span> &#8594; <span class="val-green">GREEN</span>
+        </div>
+      </div>
+    `;
+  }
+
+  html += '</div>';
+
+  // Chart: KPI progression over sprints
+  html += '<div class="chart-area"><h3>KPI Progression Across 6 Sprints</h3>';
+  html += '<div style="display:grid; grid-template-columns: repeat(5,1fr); gap:1rem;">';
+
+  const kpiList = ['SC', 'RC', 'SCT', 'EWIP', 'ECT'];
+  kpiList.forEach(kpi => {
+    const values = SPRINTS.map(s => s.kpis[kpi].value);
+    const zones = SPRINTS.map(s => s.kpis[kpi].zone);
+    const isLowerBetter = ['SCT', 'EWIP', 'ECT'].includes(kpi);
+    const maxVal = Math.max(...values) * 1.1;
+
+    html += `<div style="text-align:center"><div style="font-size:0.7rem;font-weight:700;color:var(--text-muted);margin-bottom:0.5rem;">${kpi}</div>`;
+    html += '<div class="mini-chart">';
+
+    values.forEach((v, i) => {
+      const height = isLowerBetter
+        ? ((maxVal - v) / maxVal * 100)
+        : (v / maxVal * 100);
+      const color = zones[i] === 'GREEN' ? 'var(--green)' : zones[i] === 'YELLOW' ? 'var(--yellow)' : 'var(--red)';
+      html += `<div class="mini-bar" style="height:${Math.max(height, 5)}%;background:${color};">
+        <span class="bar-value" style="color:${color}">${v}</span>
+        <span class="bar-label">${i === 0 ? 'B' : 'S' + i}</span>
+      </div>`;
+    });
+
+    html += '</div></div>';
+  });
+
+  html += '</div></div>';
+
+  // Takeaway
+  html += `
+    <div class="takeaway">
+      <h3>The Difference Is Not What to Do. It Is How to Do It.</h3>
+      <p>Every team knows they should limit WIP, break stories down, and align with the roadmap. The hard part is navigating the human side: the PM who wants everything, the developer who resists change, the stakeholder who keeps asking. That is where experienced coaching makes the difference.</p>
+      <div style="margin-top:2rem; padding-top:2rem; border-top:1px solid var(--border);">
+        <div style="display:flex; align-items:center; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+          <div style="text-align:left;">
+            <div style="font-weight:700; font-size:1.1rem; color:var(--text);">Marian Kamenistak</div>
+            <div style="font-size:0.85rem; color:var(--text-muted);">Engineering Leadership Coach | Fractional VP of Engineering</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">300+ coaching sessions/year with CTOs, VPEs, and Engineering Managers</div>
+          </div>
+        </div>
+        <p style="margin-top:1.25rem; font-size:0.9rem; color:var(--text); font-weight:500;">Want to run this on your team? DM me "health check" on LinkedIn and I will walk you through the first assessment for free.</p>
+        <div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem;">
+          <a href="https://www.linkedin.com/in/mariankamenistak/" target="_blank" class="cta-btn">Connect on LinkedIn</a>
+          <a href="https://kamenistak.com" target="_blank" class="cta-btn" style="background:var(--surface2); border:1px solid var(--border);">kamenistak.com</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+// Scroll-based nav highlighting
+function setupScrollSpy() {
+  const sections = SPRINTS.map((_, i) => document.getElementById(`sprint${i}`));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = parseInt(entry.target.id.replace('sprint', ''));
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+          d.className = 'nav-dot' + (i === idx ? ' active' : i < idx ? ' completed' : '');
+        });
+        document.querySelectorAll('.nav-line').forEach((l, i) => {
+          l.className = 'nav-line' + (i < idx ? ' filled' : '');
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => s && observer.observe(s));
+}
+
+// Init
+buildNav();
+buildSprints();
+buildResults();
+setupScrollSpy();
+</script>
+</body>
+</html>

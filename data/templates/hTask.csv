@@ -1,0 +1,4 @@
+ID;Name;Type;Stage;Priority;Labels;Parent key;Parent name;Parent type;Parent status;Assignee name;Sprints;All Development Days Round Up;All Cycle Time Days;Team Name;Level Name;Is Completed;CreatedDate;Project name;Project key
+PROJ-101;Implement login page;Story;Done;Major;;PROJ-50;User Authentication;Epic;In Progress;Jane Smith;Team1 2025 Q1 S3;3;5;Team1;L1 - Sprints;Y;2025-01-15T10:00:00.000+0100;My Project;PROJ
+PROJ-102;Fix password reset bug;Bug;In Progress;High;;PROJ-50;User Authentication;Epic;In Progress;John Doe;Team1 2025 Q1 S3;8;12;Team1;L1 - Sprints;N;2025-01-16T11:00:00.000+0100;My Project;PROJ
+PROJ-103;Design landing page;Story;Done;Medium;25Q1;PROJ-51;Marketing Site Redesign;Epic;In Progress;Alice Brown;Team1 2025 Q1 S3;2;3;Team1;L1 - Sprints;Y;2025-01-17T09:00:00.000+0100;My Project;PROJ

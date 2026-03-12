@@ -1,0 +1,4 @@
+ID;Name;Type;Stage;Priority;Labels;All Cycle Time Days;Initiative key;Team Name;Level Name;Is Completed;CreatedDate;Project name;Project key
+PROJ-50;User Authentication;Epic;In Progress;Major;;45;PROJ-10;Team1;L2 - Epics;N;2024-11-01T10:00:00.000+0100;My Project;PROJ
+PROJ-51;Marketing Site Redesign;Epic;In Progress;Major;25Q1;30;PROJ-11;Team1;L2 - Epics;N;2024-12-01T10:00:00.000+0100;My Project;PROJ
+PROJ-52;API Performance Optimization;Epic;Done;High;25Q1;60;PROJ-10;Team1;L2 - Epics;Y;2024-10-15T10:00:00.000+0100;My Project;PROJ
