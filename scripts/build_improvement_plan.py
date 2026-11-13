@@ -78,18 +78,11 @@ def compute_trend(kpi_name, values):
         return "improving" if diff < 0 else "worsening"
 
 def zone_for(kpi_name, value):
-    """Determine the zone (GREEN/YELLOW/RED) for a KPI value."""
-    thresholds = {
-        "SC":   {"GREEN": (80, 100), "YELLOW": (50, 79), "RED": (0, 49)},
-        "RC":   {"GREEN": (50, 100), "YELLOW": (35, 49), "RED": (0, 34)},
-        "SCT":  {"GREEN": (1, 6),    "YELLOW": (7, 9),   "RED": (10, 999)},
-        "EWIP": {"GREEN": (1, 3),    "YELLOW": (4, 5),   "RED": (6, 999)},
-        "ECT":  {"GREEN": (1, 5),    "YELLOW": (6, 8),   "RED": (9, 999)},
-    }
-    for zone, (lo, hi) in thresholds[kpi_name].items():
-        if lo <= value <= hi:
-            return zone
-    return "RED"
+    """Determine the zone (GREEN/YELLOW/RED) for a KPI value. Same cut-offs as calculate_kpis.zone()."""
+    t = {"SC": (80, 50), "RC": (50, 35), "SCT": (6, 9), "EWIP": (3, 5), "ECT": (5, 8)}[kpi_name]
+    if kpi_name in ("SC", "RC"):
+        return "GREEN" if value >= t[0] else "YELLOW" if value >= t[1] else "RED"
+    return "GREEN" if value <= t[0] else "YELLOW" if value <= t[1] else "RED"
 
 def detect_feedback_loops(kpi_values):
     """Detect dangerous feedback loops from KPI trends."""
@@ -260,6 +253,8 @@ def main():
         print(f"ERROR: No closed sprints found for team '{args.team}'", file=sys.stderr)
         sys.exit(1)
 
+    # find_sprints returns newest first; everything below (latest, trends, loops, HTML) expects oldest -> newest
+    sprint_names = list(reversed(sprint_names))
     print(f"Found {len(sprint_names)} closed sprints: {sprint_names}")
 
     # Calculate KPIs for each sprint
