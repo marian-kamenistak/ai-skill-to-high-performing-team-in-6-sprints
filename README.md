@@ -62,7 +62,7 @@ python3 scripts/generate_interactive_html.py \
 
 ### Step 1: Export from Jira
 
-You need 4 CSV files from Jira using the [Hierarchy for Jira](https://marketplace.atlassian.com/apps/1224459) plugin. Detailed instructions are in `references/jira_export_guide.md`.
+You need 4 CSV files from Jira using the [Hierarchy for Jira](https://marketplace.atlassian.com/apps/1220574/hierarchy-for-jira-custom-issue-structure-and-timeline) plugin. Detailed instructions are in `references/jira_export_guide.md`.
 
 | File | Contains |
 |------|----------|
